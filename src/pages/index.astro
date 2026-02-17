@@ -4,64 +4,109 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Comprar ou Arrendar</title>
+<title>comprarouarrendar.pt</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 </head>
 
-<body style="font-family:Inter;background:#f7f7f7;text-align:center;padding:40px;">
+<body style="
+margin:0;
+font-family:Inter,sans-serif;
+background:
+linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
+url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1600');
+background-size:cover;
+background-position:center;
+color:#1c1917;
+">
 
-<h1>Simulador Comprar vs Arrendar</h1>
+<section style="
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:40px 20px;
+">
 
-<p>Toma uma decisão informada sobre habitação em Portugal.</p>
+<div style="
+background:#14532d;
+color:white;
+padding:6px 16px;
+border-radius:999px;
+font-size:13px;
+font-weight:600;
+letter-spacing:1px;
+margin-bottom:20px;
+">
+PREMIUM DOMAIN
+</div>
 
-<div style="background:white;padding:30px;max-width:520px;margin:auto;border-radius:12px;">
+<h1 style="
+font-size:54px;
+margin-bottom:10px;
+color:#14532d;
+">
+comprarouarrendar.pt
+</h1>
 
-<input id="preco" placeholder="Preço da casa" type="number"><br><br>
-<input id="entrada" placeholder="Entrada" type="number"><br><br>
-<input id="juros" placeholder="Juro anual %" type="number"><br><br>
-<input id="anos" placeholder="Anos crédito" type="number"><br><br>
-<input id="renda" placeholder="Renda mensal" type="number"><br><br>
+<p style="
+font-size:20px;
+max-width:700px;
+opacity:0.9;
+">
+Domínio premium ideal para projetos imobiliários,
+fintechs ou simuladores de crédito habitação em Portugal.
+</p>
 
-<button onclick="calc()">Simular</button>
+<div style="
+margin-top:40px;
+background:white;
+padding:45px;
+border-radius:18px;
+max-width:650px;
+box-shadow:0 15px 40px rgba(0,0,0,0.12);
+">
 
-<h2 id="res"></h2>
+<h2 style="
+margin-top:0;
+color:#14532d;
+">
+Domínio disponível para aquisição
+</h2>
+
+<p style="
+opacity:0.75;
+line-height:1.6;
+">
+Oportunidade única para marcas que queiram posicionar-se
+no mercado imobiliário português com um nome direto,
+memorável e altamente relevante.
+</p>
+
+<p style="
+margin-top:30px;
+font-size:18px;
+opacity:0.7;
+">
+Contacto
+</p>
+
+<p style="
+font-size:22px;
+font-weight:600;
+color:#14532d;
+">
+daniel.rondulha@gmail.com
+</p>
 
 </div>
 
-<nav style="margin-top:40px;">
-<a href="/guia">Guia</a> |
-<a href="/quem-somos">Quem Somos</a> |
-<a href="/contactos">Contactos</a> |
-<a href="/privacidade">Privacidade</a> |
-<a href="/termos">Termos</a> |
-<a href="/cookies">Cookies</a>
-</nav>
-
-<script>
-
-function calc(){
-let p=+preco.value;
-let e=+entrada.value;
-let j=+juros.value/100/12;
-let m=+anos.value*12;
-let r=+renda.value;
-
-let loan=p-e;
-let pay=loan*(j*(1+j)**m)/((1+j)**m-1);
-
-let buy=pay*m+p*0.06+p*0.01*m/12;
-let rent=r*m;
-
-res.innerText = buy<rent ?
-"Comprar compensa!" :
-"Arrendar compensa!";
-}
-
-</script>
+</section>
 
 </body>
 </html>
