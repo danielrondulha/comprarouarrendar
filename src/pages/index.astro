@@ -5,108 +5,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>comprarouarrendar.pt</title>
+<title>Simulador Comprar vs Arrendar</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
+<style>
+
+body{
+font-family:Inter;
+margin:0;
+background:#f3f4f6;
+}
+
+.container{
+display:flex;
+gap:40px;
+padding:40px;
+}
+
+.left{flex:1;}
+.right{
+flex:1;
+background:#065f46;
+color:white;
+padding:30px;
+border-radius:16px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+label{
+font-weight:600;
+}
+
+.value{
+float:right;
+}
+
+input[type=range]{
+width:100%;
+}
+
+button{
+width:100%;
+padding:14px;
+background:#065f46;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+}
+
+.big{
+font-size:40px;
+font-weight:600;
+}
+
+.bar{
+height:10px;
+background:#fbbf24;
+border-radius:999px;
+margin:10px 0;
+}
+
+.bar2{
+height:10px;
+background:#34d399;
+border-radius:999px;
+margin:10px 0;
+}
+
+.resultBox{
+background:#166534;
+padding:20px;
+border-radius:14px;
+margin-top:20px;
+}
+
+</style>
 </head>
 
-<body style="
-margin:0;
-font-family:Inter,sans-serif;
-background:
-linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
-url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1600');
-background-size:cover;
-background-position:center;
-color:#1c1917;
-">
+<body>
 
-<section style="
-min-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:40px 20px;
-">
+<div class="container">
 
-<div style="
-background:#14532d;
-color:white;
-padding:6px 16px;
-border-radius:999px;
-font-size:13px;
-font-weight:600;
-letter-spacing:1px;
-margin-bottom:20px;
-">
-PREMIUM DOMAIN
-</div>
+<div class="left">
 
-<h1 style="
-font-size:54px;
-margin-bottom:10px;
-color:#14532d;
-">
-comprarouarrendar.pt
-</h1>
+<h1>Simulador Comprar vs Arrendar</h1>
 
-<p style="
-font-size:20px;
-max-width:700px;
-opacity:0.9;
-">
-Domínio premium ideal para projetos imobiliários,
-fintechs ou simuladores de crédito habitação em Portugal.
-</p>
+<!-- COMPRAR -->
+<div class="card">
+<h3>🏠 Comprar</h3>
 
-<div style="
-margin-top:40px;
-background:white;
-padding:45px;
-border-radius:18px;
-max-width:650px;
-box-shadow:0 15px 40px rgba(0,0,0,0.12);
-">
+<label>Preço do Imóvel <span id="vpreco" class="value">250000€</span></label>
+<input id="preco" type="range" min="50000" max="1000000" step="5000" value="250000" oninput="upd()">
 
-<h2 style="
-margin-top:0;
-color:#14532d;
-">
-Domínio disponível para aquisição
-</h2>
+<label>Entrada <span id="ventrada" class="value">50000€</span></label>
+<input id="entrada" type="range" min="0" max="300000" step="5000" value="50000" oninput="upd()">
 
-<p style="
-opacity:0.75;
-line-height:1.6;
-">
-Oportunidade única para marcas que queiram posicionar-se
-no mercado imobiliário português com um nome direto,
-memorável e altamente relevante.
-</p>
+<label>Juro (%) <span id="vjuros" class="value">3.5%</span></label>
+<input id="juros" type="range" min="1" max="6" step="0.1" value="3.5" oninput="upd()">
 
-<p style="
-margin-top:30px;
-font-size:18px;
-opacity:0.7;
-">
-Contacto
-</p>
+<label>Prazo (anos) <span id="vanos" class="value">30</span></label>
+<input id="anos" type="range" min="10" max="40" value="30" oninput="upd()">
 
-<p style="
-font-size:22px;
-font-weight:600;
-color:#14532d;
-">
-daniel.rondulha@gmail.com
-</p>
+<label>IMI anual <span id="vimi" class="value">400€</span></label>
+<input id="imi" type="range" min="0" max="2000" step="50" value="400" oninput="upd()">
+
+<label>Condomínio mensal <span id="vcond" class="value">50€</span></label>
+<input id="cond" type="range" min="0" max="300" value="50" oninput="upd()">
+
+<label>Manutenção anual <span id="vmanut" class="value">1000€</span></label>
+<input id="manut" type="range" min="0" max="5000" step="100" value="1000" oninput="upd()">
 
 </div>
 
-</section>
+<!-- ARRENDAR -->
+<div class="card">
+<h3>🏡 Arrendar</h3>
+
+<label>Renda mensal <span id="vrenda" class="value">800€</span></label>
+<input id="renda" type="range" min="300" max="4000" step="50" value="800" oninput="upd()">
+
+<label>Seguro anual <span id="vseguro" class="value">150€</span></label>
+<input id="seguro" type="range" min="0" max="500" value="150" oninput="upd()">
+
+<label>Extras mensais <span id="vextra" class="value">0€</span></label>
+<input id="extra" type="range" min="0" max="500" value="0" oninput="upd()">
+
+<button onclick="calc()">Calcular</button>
+
+</div>
+
+</div>
+
+<!-- RESULTADOS -->
+<div class="right">
+
+<h2>Resultados</h2>
+
+Prestação Mensal
+<div class="big" id="prest">—</div>
+
+Custo Anual Comprar
+<div id="cComprar">—</div>
+<div class="bar"></div>
+
+Custo Anual Arrendar
+<div id="cArrendar">—</div>
+<div class="bar2"></div>
+
+<div class="resultBox" id="final"></div>
+
+</div>
+
+</div>
+
+<script>
+
+function upd(){
+vpreco.innerText=preco.value+"€";
+ventrada.innerText=entrada.value+"€";
+vjuros.innerText=juros.value+"%";
+vanos.innerText=anos.value;
+vimi.innerText=imi.value+"€";
+vcond.innerText=cond.value+"€";
+vmanut.innerText=manut.value+"€";
+
+vrenda.innerText=renda.value+"€";
+vseguro.innerText=seguro.value+"€";
+vextra.innerText=extra.value+"€";
+}
+
+function calc(){
+
+let p=+preco.value;
+let e=+entrada.value;
+let j=+juros.value/100/12;
+let m=+anos.value*12;
+
+let rendaV=+renda.value;
+let imiV=+imi.value;
+let condV=+cond.value;
+let manutV=+manut.value;
+let seguroV=+seguro.value;
+let extraV=+extra.value;
+
+let loan=p-e;
+let mensal=loan*(j*(1+j)**m)/((1+j)**m-1);
+
+let anualComprar=mensal*12+imiV+condV*12+manutV;
+let anualArrendar=rendaV*12+seguroV+extraV*12;
+
+prest.innerText=mensal.toFixed(2)+"€";
+cComprar.innerText=anualComprar.toFixed(2)+"€";
+cArrendar.innerText=anualArrendar.toFixed(2)+"€";
+
+if(anualComprar<anualArrendar){
+final.innerHTML="🏠 Comprar compensa";
+}else{
+final.innerHTML="🏡 Arrendar compensa";
+}
+
+}
+
+upd();
+calc();
+
+</script>
 
 </body>
 </html>
