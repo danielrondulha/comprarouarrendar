@@ -3,92 +3,62 @@
 
 <html lang="pt">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Simulador Comprar vs Arrendar</title>
+<title>Comprar ou Arrendar</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
 </head>
 
-<body style="
-font-family: Inter;
-background:#f5f5f4;
-padding:40px;
-text-align:center;
-">
+<body style="font-family:Inter;background:#f7f7f7;text-align:center;padding:40px;">
 
 <h1>Simulador Comprar vs Arrendar</h1>
 
-<div style="
-background:white;
-padding:30px;
-max-width:500px;
-margin:auto;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
-">
+<p>Toma uma decisão informada sobre habitação em Portugal.</p>
 
-<p>Preço da casa (€)</p>
-<input id="preco" type="number" placeholder="200000" style="width:100%;padding:10px">
+<div style="background:white;padding:30px;max-width:520px;margin:auto;border-radius:12px;">
 
-<p>Entrada (€)</p>
-<input id="entrada" type="number" placeholder="20000" style="width:100%;padding:10px">
+<input id="preco" placeholder="Preço da casa" type="number"><br><br>
+<input id="entrada" placeholder="Entrada" type="number"><br><br>
+<input id="juros" placeholder="Juro anual %" type="number"><br><br>
+<input id="anos" placeholder="Anos crédito" type="number"><br><br>
+<input id="renda" placeholder="Renda mensal" type="number"><br><br>
 
-<p>Taxa de juro anual (%)</p>
-<input id="juros" type="number" placeholder="4" style="width:100%;padding:10px">
+<button onclick="calc()">Simular</button>
 
-<p>Duração do crédito (anos)</p>
-<input id="anos" type="number" placeholder="30" style="width:100%;padding:10px">
-
-<p>Renda mensal (€)</p>
-<input id="renda" type="number" placeholder="900" style="width:100%;padding:10px">
-
-<button onclick="calcular()" style="
-margin-top:20px;
-padding:15px;
-width:100%;
-background:#14532d;
-color:white;
-border:none;
-border-radius:8px;
-font-size:16px;
-">
-Calcular
-</button>
-
-<h2 id="resultado" style="margin-top:20px;"></h2>
+<h2 id="res"></h2>
 
 </div>
 
+<nav style="margin-top:40px;">
+<a href="/guia">Guia</a> |
+<a href="/quem-somos">Quem Somos</a> |
+<a href="/contactos">Contactos</a> |
+<a href="/privacidade">Privacidade</a> |
+<a href="/termos">Termos</a> |
+<a href="/cookies">Cookies</a>
+</nav>
+
 <script>
 
-function calcular(){
+function calc(){
+let p=+preco.value;
+let e=+entrada.value;
+let j=+juros.value/100/12;
+let m=+anos.value*12;
+let r=+renda.value;
 
-let preco = +document.getElementById("preco").value;
-let entrada = +document.getElementById("entrada").value;
-let juros = +document.getElementById("juros").value / 100 / 12;
-let anos = +document.getElementById("anos").value * 12;
-let renda = +document.getElementById("renda").value;
+let loan=p-e;
+let pay=loan*(j*(1+j)**m)/((1+j)**m-1);
 
-let emprestimo = preco - entrada;
+let buy=pay*m+p*0.06+p*0.01*m/12;
+let rent=r*m;
 
-let mensal = emprestimo * (juros * (1+juros)**anos) / ((1+juros)**anos - 1);
-
-let custoComprar = mensal * anos;
-let custoArrendar = renda * anos;
-
-let texto = "";
-
-if(custoComprar < custoArrendar){
-texto = "🏠 Comprar compensa mais a longo prazo!";
-}else{
-texto = "💸 Arrendar fica mais barato!";
-}
-
-document.getElementById("resultado").innerText = texto;
-
+res.innerText = buy<rent ?
+"Comprar compensa!" :
+"Arrendar compensa!";
 }
 
 </script>
