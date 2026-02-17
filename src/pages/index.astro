@@ -3,201 +3,264 @@
 
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulador Comprar vs Arrendar</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<title>Simulador Comprar vs Arrendar</title>
 
-  <style>
-    body{font-family:Inter;margin:0;background:#f3f4f6;}
-    .container{display:flex;gap:40px;padding:40px;}
-    .left{flex:1;}
-    .right{flex:1;background:#065f46;color:#fff;padding:30px;border-radius:16px;}
-    .card{background:#fff;padding:20px;border-radius:12px;margin-bottom:20px;}
-    label{font-weight:600;display:block;margin-top:14px;}
-    .value{float:right;font-weight:600;color:#065f46;}
-    input[type=range]{width:100%;margin-top:10px;}
-    button{width:100%;padding:14px;background:#065f46;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer;margin-top:18px;}
-    .big{font-size:40px;font-weight:600;margin:8px 0 18px 0;}
-    .bar{height:10px;background:#fbbf24;border-radius:999px;margin:10px 0;}
-    .bar2{height:10px;background:#34d399;border-radius:999px;margin:10px 0;}
-    .resultBox{background:#166534;padding:20px;border-radius:14px;margin-top:20px;}
-    @media (max-width: 980px){ .container{flex-direction:column;} }
-  </style>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:Manrope;
+margin:0;
+background:#f3f4f6;
+}
+
+.container{
+display:flex;
+gap:40px;
+padding:40px;
+}
+
+.left{flex:1;}
+
+.right{
+flex:1;
+background:#065f46;
+color:white;
+padding:30px;
+border-radius:16px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+details summary{
+font-weight:700;
+font-size:18px;
+cursor:pointer;
+margin-bottom:10px;
+}
+
+label{
+display:block;
+margin-top:12px;
+font-weight:600;
+}
+
+.value{
+float:right;
+color:#065f46;
+font-weight:700;
+}
+
+input[type=range]{
+width:100%;
+}
+
+.big{
+font-size:46px;
+font-weight:700;
+}
+
+.compareBar{
+height:12px;
+background:#134e4a;
+border-radius:999px;
+overflow:hidden;
+margin:8px 0 20px 0;
+}
+
+.compareFillBuy{
+height:100%;
+background:#fbbf24;
+}
+
+.compareFillRent{
+height:100%;
+background:#34d399;
+}
+
+.resultCard{
+background:#166534;
+padding:22px;
+border-radius:14px;
+margin-top:20px;
+border:2px solid #fbbf24;
+}
+
+.disclaimer{
+background:#064e3b;
+padding:16px;
+border-radius:12px;
+margin-top:20px;
+font-size:14px;
+opacity:0.9;
+}
+
+@media(max-width:900px){
+.container{flex-direction:column;}
+}
+
+</style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="left">
-      <h1>Simulador Comprar vs Arrendar</h1>
 
-      <div class="card">
-        <h3>🏠 Comprar</h3>
+<div class="container">
 
-        <label>Preço do Imóvel <span id="vpreco" class="value">250000€</span></label>
-        <input id="preco" type="range" min="50000" max="1000000" step="5000" value="250000" />
+<!-- LEFT -->
+<div class="left">
 
-        <label>Entrada <span id="ventrada" class="value">50000€</span></label>
-        <input id="entrada" type="range" min="0" max="300000" step="5000" value="50000" />
+<h1>Simulador Arrendar vs Comprar</h1>
 
-        <label>Juro (%) <span id="vjuros" class="value">3.5%</span></label>
-        <input id="juros" type="range" min="0" max="8" step="0.1" value="3.5" />
+<div class="card">
+<details open>
+<summary>🏠 Comprar</summary>
 
-        <label>Prazo (anos) <span id="vanos" class="value">30</span></label>
-        <input id="anos" type="range" min="5" max="40" step="1" value="30" />
+<label>Preço <span id="vpreco" class="value"></span></label>
+<input id="preco" type="range" min="50000" max="800000" step="5000" value="250000">
 
-        <label>IMI anual <span id="vimi" class="value">400€</span></label>
-        <input id="imi" type="range" min="0" max="3000" step="50" value="400" />
+<label>Entrada <span id="ventrada" class="value"></span></label>
+<input id="entrada" type="range" min="0" max="300000" step="5000" value="50000">
 
-        <label>Condomínio mensal <span id="vcond" class="value">50€</span></label>
-        <input id="cond" type="range" min="0" max="400" step="10" value="50" />
+<label>Juro % <span id="vjuros" class="value"></span></label>
+<input id="juros" type="range" min="0" max="7" step="0.1" value="3.5">
 
-        <label>Manutenção anual <span id="vmanut" class="value">1000€</span></label>
-        <input id="manut" type="range" min="0" max="8000" step="100" value="1000" />
-      </div>
+<label>Prazo (anos) <span id="vanos" class="value"></span></label>
+<input id="anos" type="range" min="5" max="40" value="30">
 
-      <div class="card">
-        <h3>🏡 Arrendar</h3>
+<label>IMI anual <span id="vimi" class="value"></span></label>
+<input id="imi" type="range" min="0" max="2500" step="50" value="400">
 
-        <label>Renda mensal <span id="vrenda" class="value">800€</span></label>
-        <input id="renda" type="range" min="300" max="4000" step="50" value="800" />
+<label>Condomínio mensal <span id="vcond" class="value"></span></label>
+<input id="cond" type="range" min="0" max="300" value="50">
 
-        <label>Seguro anual <span id="vseguro" class="value">150€</span></label>
-        <input id="seguro" type="range" min="0" max="800" step="10" value="150" />
+<label>Manutenção anual <span id="vmanut" class="value"></span></label>
+<input id="manut" type="range" min="0" max="5000" step="100" value="1000">
 
-        <label>Extras mensais <span id="vextra" class="value">0€</span></label>
-        <input id="extra" type="range" min="0" max="800" step="10" value="0" />
+<label>Seguro multirriscos anual <span id="vseguro" class="value"></span></label>
+<input id="seguro" type="range" min="0" max="800" value="250">
 
-        <button id="btnCalc">Calcular</button>
-      </div>
-    </div>
+</details>
+</div>
 
-    <div class="right">
-      <h2>Resultados</h2>
+<div class="card">
+<details open>
+<summary>🏡 Arrendar</summary>
 
-      <div>Prestação Mensal</div>
-      <div class="big" id="prest">—</div>
+<label>Renda mensal <span id="vrenda" class="value"></span></label>
+<input id="renda" type="range" min="300" max="4000" step="50" value="800">
 
-      <div>Custo Anual (Comprar)</div>
-      <div id="cComprar">—</div>
-      <div class="bar"></div>
+<label>Extras mensais <span id="vextra" class="value"></span></label>
+<input id="extra" type="range" min="0" max="500" value="0">
 
-      <div>Custo Anual (Arrendar)</div>
-      <div id="cArrendar">—</div>
-      <div class="bar2"></div>
+</details>
+</div>
 
-      <div class="resultBox" id="final">—</div>
-    </div>
-  </div>
+</div>
 
-  <script>
-    // Helper
-    const el = (id) => document.getElementById(id);
-    const money = (n) => new Intl.NumberFormat('pt-PT', { style:'currency', currency:'EUR' }).format(n);
+<!-- RIGHT -->
+<div class="right">
 
-    const inputs = {
-      preco: el("preco"),
-      entrada: el("entrada"),
-      juros: el("juros"),
-      anos: el("anos"),
-      imi: el("imi"),
-      cond: el("cond"),
-      manut: el("manut"),
-      renda: el("renda"),
-      seguro: el("seguro"),
-      extra: el("extra"),
-    };
+<h2>Resultados</h2>
 
-    const labels = {
-      vpreco: el("vpreco"),
-      ventrada: el("ventrada"),
-      vjuros: el("vjuros"),
-      vanos: el("vanos"),
-      vimi: el("vimi"),
-      vcond: el("vcond"),
-      vmanut: el("vmanut"),
-      vrenda: el("vrenda"),
-      vseguro: el("vseguro"),
-      vextra: el("vextra"),
-    };
+Prestação mensal
+<div class="big" id="prest"></div>
 
-    const out = {
-      prest: el("prest"),
-      cComprar: el("cComprar"),
-      cArrendar: el("cArrendar"),
-      final: el("final"),
-    };
+Custo Anual (Comprar) <span id="buyVal"></span>
+<div class="compareBar"><div id="buyBar" class="compareFillBuy"></div></div>
 
-    function updateLabels(){
-      labels.vpreco.textContent   = `${inputs.preco.value}€`;
-      labels.ventrada.textContent = `${inputs.entrada.value}€`;
-      labels.vjuros.textContent   = `${inputs.juros.value}%`;
-      labels.vanos.textContent    = `${inputs.anos.value}`;
-      labels.vimi.textContent     = `${inputs.imi.value}€`;
-      labels.vcond.textContent    = `${inputs.cond.value}€`;
-      labels.vmanut.textContent   = `${inputs.manut.value}€`;
+Custo Anual (Arrendar) <span id="rentVal"></span>
+<div class="compareBar"><div id="rentBar" class="compareFillRent"></div></div>
 
-      labels.vrenda.textContent   = `${inputs.renda.value}€`;
-      labels.vseguro.textContent  = `${inputs.seguro.value}€`;
-      labels.vextra.textContent   = `${inputs.extra.value}€`;
-    }
+<div id="resultCard" class="resultCard"></div>
 
-    function monthlyPayment(principal, annualRatePct, years){
-      const n = years * 12;
-      const r = (annualRatePct / 100) / 12;
+<div class="disclaimer">
+<b>Nota importante:</b> Esta simulação é uma estimativa simplificada.  
+Não inclui valorização do imóvel, inflação ou benefícios fiscais.  
+Consulte um profissional para decisões financeiras.
+</div>
 
-      if (principal <= 0) return 0;
-      if (r === 0) return principal / n;
+</div>
 
-      return principal * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-    }
+</div>
 
-    function calculate(){
-      const preco   = Number(inputs.preco.value);
-      const entrada = Number(inputs.entrada.value);
-      const juros   = Number(inputs.juros.value);
-      const anos    = Number(inputs.anos.value);
+<script>
 
-      const imi     = Number(inputs.imi.value);
-      const cond    = Number(inputs.cond.value);
-      const manut   = Number(inputs.manut.value);
+const €=n=>new Intl.NumberFormat('pt-PT',{style:'currency',currency:'EUR'}).format(n);
+const g=id=>document.getElementById(id);
 
-      const renda   = Number(inputs.renda.value);
-      const seguro  = Number(inputs.seguro.value);
-      const extra   = Number(inputs.extra.value);
+function pay(P,r,y){
+let m=y*12;
+let j=r/100/12;
+return j===0?P/m:P*(j*(1+j)**m)/((1+j)**m-1);
+}
 
-      const emprestimo = Math.max(0, preco - entrada);
-      const prestacaoMensal = monthlyPayment(emprestimo, juros, anos);
+function update(){
 
-      const anualComprar  = (prestacaoMensal * 12) + imi + (cond * 12) + manut;
-      const anualArrendar = (renda * 12) + seguro + (extra * 12);
+let p=+g("preco").value;
+let e=+g("entrada").value;
+let r=+g("juros").value;
+let y=+g("anos").value;
 
-      out.prest.textContent    = money(prestacaoMensal);
-      out.cComprar.textContent = money(anualComprar);
-      out.cArrendar.textContent= money(anualArrendar);
+let imi=+g("imi").value;
+let cond=+g("cond").value;
+let manut=+g("manut").value;
+let seguro=+g("seguro").value;
 
-      const diff = Math.abs(anualComprar - anualArrendar);
+let renda=+g("renda").value;
+let extra=+g("extra").value;
 
-      if (anualComprar < anualArrendar){
-        out.final.innerHTML = `<b>Comprar compensa</b><br>Poupança anual de ${money(diff)}`;
-      } else if (anualArrendar < anualComprar){
-        out.final.innerHTML = `<b>Arrendar compensa</b><br>Poupança anual de ${money(diff)}`;
-      } else {
-        out.final.innerHTML = `<b>Empate</b><br>Os custos anuais são iguais.`;
-      }
-    }
+// labels
+g("vpreco").innerText=€(p);
+g("ventrada").innerText=€(e);
+g("vjuros").innerText=r+"%";
+g("vanos").innerText=y;
+g("vimi").innerText=€(imi);
+g("vcond").innerText=€(cond);
+g("vmanut").innerText=€(manut);
+g("vseguro").innerText=€(seguro);
+g("vrenda").innerText=€(renda);
+g("vextra").innerText=€(extra);
 
-    // Wire events (auto-calc on slider move)
-    Object.values(inputs).forEach((input) => {
-      input.addEventListener("input", () => { updateLabels(); calculate(); });
-    });
+// cálculos
+let loan=p-e;
+let mensal=pay(loan,r,y);
 
-    el("btnCalc").addEventListener("click", () => { updateLabels(); calculate(); });
+let buy=mensal*12+imi+cond*12+manut+seguro;
+let rent=renda*12+extra*12;
 
-    // Init
-    updateLabels();
-    calculate();
-  </script>
+g("prest").innerText=€(mensal);
+g("buyVal").innerText=€(buy);
+g("rentVal").innerText=€(rent);
+
+// barras
+let max=Math.max(buy,rent);
+g("buyBar").style.width=(buy/max*100)+"%";
+g("rentBar").style.width=(rent/max*100)+"%";
+
+// resultado
+let diff=Math.abs(buy-rent);
+
+if(buy<rent){
+g("resultCard").innerHTML="<h3>Comprar é mais barato</h3>Poupança anual de <b>"+€(diff)+"</b>";
+}else{
+g("resultCard").innerHTML="<h3>Arrendar é mais barato</h3>Poupança anual de <b>"+€(diff)+"</b>";
+}
+
+}
+
+document.querySelectorAll("input").forEach(i=>i.addEventListener("input",update));
+update();
+
+</script>
+
 </body>
 </html>
