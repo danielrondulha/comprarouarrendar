@@ -2,120 +2,96 @@
 ---
 
 <html lang="pt">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Comprar ou Arrendar</title>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Simulador Comprar vs Arrendar</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-  </head>
+</head>
 
-  <body style="
-    margin:0;
-    font-family: Inter, sans-serif;
-    color:#1c1917;
-    background:
-      linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
-      url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1600');
-    background-size:cover;
-    background-position:center;
-  ">
+<body style="
+font-family: Inter;
+background:#f5f5f4;
+padding:40px;
+text-align:center;
+">
 
-    <section style="
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      padding:40px 20px;
-    ">
+<h1>Simulador Comprar vs Arrendar</h1>
 
-      <!-- BADGE -->
-      <div style="
-        background:#14532d;
-        color:white;
-        padding:6px 16px;
-        border-radius:999px;
-        font-size:13px;
-        font-weight:600;
-        letter-spacing:1px;
-        margin-bottom:20px;
-      ">
-        PREMIUM DOMAIN
-      </div>
+<div style="
+background:white;
+padding:30px;
+max-width:500px;
+margin:auto;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+">
 
-      <h1 style="
-        font-size:54px;
-        margin-bottom:20px;
-        color:#14532d;
-      ">
-        Comprar ou Arrendar?
-      </h1>
+<p>Preço da casa (€)</p>
+<input id="preco" type="number" placeholder="200000" style="width:100%;padding:10px">
 
-      <p style="
-        font-size:20px;
-        max-width:700px;
-        opacity:0.9;
-      ">
-        Um domínio premium para projetos imobiliários,
-        plataformas de investimento ou simuladores de crédito habitação.
-      </p>
+<p>Entrada (€)</p>
+<input id="entrada" type="number" placeholder="20000" style="width:100%;padding:10px">
 
-      <div style="
-        margin-top:40px;
-        background:white;
-        padding:45px;
-        border-radius:18px;
-        max-width:650px;
-        box-shadow:0 15px 40px rgba(0,0,0,0.12);
-      ">
+<p>Taxa de juro anual (%)</p>
+<input id="juros" type="number" placeholder="4" style="width:100%;padding:10px">
 
-        <h2 style="
-          margin-top:0;
-          color:#14532d;
-        ">
-          Domínio disponível para aquisição
-        </h2>
+<p>Duração do crédito (anos)</p>
+<input id="anos" type="number" placeholder="30" style="width:100%;padding:10px">
 
-        <p style="
-          opacity:0.75;
-          line-height:1.6;
-        ">
-          Uma oportunidade rara para marcas que queiram posicionar-se
-          no mercado imobiliário português com autoridade e relevância.
-        </p>
+<p>Renda mensal (€)</p>
+<input id="renda" type="number" placeholder="900" style="width:100%;padding:10px">
 
-        <p style="
-          margin-top:30px;
-          font-size:18px;
-          opacity:0.7;
-        ">
-          Contacto
-        </p>
+<button onclick="calcular()" style="
+margin-top:20px;
+padding:15px;
+width:100%;
+background:#14532d;
+color:white;
+border:none;
+border-radius:8px;
+font-size:16px;
+">
+Calcular
+</button>
 
-        <p style="
-          font-size:22px;
-          font-weight:600;
-          color:#14532d;
-        ">
-          daniel.rondulha@gmail.com
-        </p>
+<h2 id="resultado" style="margin-top:20px;"></h2>
 
-      </div>
+</div>
 
-      <p style="
-        margin-top:40px;
-        opacity:0.6;
-        font-size:14px;
-        letter-spacing:1px;
-      ">
-        comprarouarrendar.pt
-      </p>
+<script>
 
-    </section>
+function calcular(){
 
-  </body>
+let preco = +document.getElementById("preco").value;
+let entrada = +document.getElementById("entrada").value;
+let juros = +document.getElementById("juros").value / 100 / 12;
+let anos = +document.getElementById("anos").value * 12;
+let renda = +document.getElementById("renda").value;
+
+let emprestimo = preco - entrada;
+
+let mensal = emprestimo * (juros * (1+juros)**anos) / ((1+juros)**anos - 1);
+
+let custoComprar = mensal * anos;
+let custoArrendar = renda * anos;
+
+let texto = "";
+
+if(custoComprar < custoArrendar){
+texto = "🏠 Comprar compensa mais a longo prazo!";
+}else{
+texto = "💸 Arrendar fica mais barato!";
+}
+
+document.getElementById("resultado").innerText = texto;
+
+}
+
+</script>
+
+</body>
 </html>
