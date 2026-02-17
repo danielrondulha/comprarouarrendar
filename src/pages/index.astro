@@ -194,7 +194,12 @@ Consulte um profissional para decisões financeiras.
 
 <script>
 
-const €=n=>new Intl.NumberFormat('pt-PT',{style:'currency',currency:'EUR'}).format(n);
+const formatEuro = n =>
+  new Intl.NumberFormat('pt-PT',{
+    style:'currency',
+    currency:'EUR'
+  }).format(n);
+
 const g=id=>document.getElementById(id);
 
 function pay(P,r,y){
@@ -219,16 +224,16 @@ let renda=+g("renda").value;
 let extra=+g("extra").value;
 
 // labels
-g("vpreco").innerText=€(p);
-g("ventrada").innerText=€(e);
+g("vpreco").innerText=formatEuro(p);
+g("ventrada").innerText=formatEuro(e);
 g("vjuros").innerText=r+"%";
 g("vanos").innerText=y;
-g("vimi").innerText=€(imi);
-g("vcond").innerText=€(cond);
-g("vmanut").innerText=€(manut);
-g("vseguro").innerText=€(seguro);
-g("vrenda").innerText=€(renda);
-g("vextra").innerText=€(extra);
+g("vimi").innerText=formatEuro(imi);
+g("vcond").innerText=formatEuro(cond);
+g("vmanut").innerText=formatEuro(manut);
+g("vseguro").innerText=formatEuro(seguro);
+g("vrenda").innerText=formatEuro(renda);
+g("vextra").innerText=formatEuro(extra);
 
 // cálculos
 let loan=p-e;
@@ -237,9 +242,9 @@ let mensal=pay(loan,r,y);
 let buy=mensal*12+imi+cond*12+manut+seguro;
 let rent=renda*12+extra*12;
 
-g("prest").innerText=€(mensal);
-g("buyVal").innerText=€(buy);
-g("rentVal").innerText=€(rent);
+g("prest").innerText=formatEuro(mensal);
+g("buyVal").innerText=formatEuro(buy);
+g("rentVal").innerText=formatEuro(rent);
 
 // barras
 let max=Math.max(buy,rent);
@@ -250,9 +255,9 @@ g("rentBar").style.width=(rent/max*100)+"%";
 let diff=Math.abs(buy-rent);
 
 if(buy<rent){
-g("resultCard").innerHTML="<h3>Comprar é mais barato</h3>Poupança anual de <b>"+€(diff)+"</b>";
+g("resultCard").innerHTML="<h3>Comprar é mais barato</h3>Poupança anual de <b>"+formatEuro(diff)+"</b>";
 }else{
-g("resultCard").innerHTML="<h3>Arrendar é mais barato</h3>Poupança anual de <b>"+€(diff)+"</b>";
+g("resultCard").innerHTML="<h3>Arrendar é mais barato</h3>Poupança anual de <b>"+formatEuro(diff)+"</b>";
 }
 
 }
